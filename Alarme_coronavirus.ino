@@ -7,7 +7,7 @@
 #include "SoundData.h"
 #include "XT_DAC_Audio.h"
 
-XT_Wav_Class ForceWithYou(astronomy);     // create an object of type XT_Wav_Class that is used by 
+XT_Wav_Class Alarme(astronomia);     // create an object of type XT_Wav_Class that is used by 
                                       // the dac audio class (below), passing wav data as parameter.
                                       
 XT_DAC_Audio_Class DacAudio(25,0);    // Create the main player class object. 
@@ -15,19 +15,28 @@ XT_DAC_Audio_Class DacAudio(25,0);    // Create the main player class object.
 
 //uint32_t DemoCounter=0;               // Just a counter to use in the serial monitor
                                       // not essential to playing the sound
+unsigned long tempo = millis();
 
 void setup() {
-  //Serial.begin(115200);               // Not needed for sound, just to demo printing to the serial
+    
+  
+  Serial.begin(115200);               // Not needed for sound, just to demo printing to the serial
                                       // Monitor whilst the sound plays, ensure your serial monitor
                                       // speed is set to this speed also.
+                                      
 }
 
 
 void loop() {
-  if(touchRead(T0)<50){
+  if(millis()- tempo>1000) {
+    Serial.println(touchRead(T0));       //imprime no monitor serial o valor do touch a cada 1 segundo
+    tempo=millis();
+  }
+  if(touchRead(T0)<50){                 //lê sensor touch do esp32 e analisa se o valor é menor que 50.  Esse valor 50 pode ser alterado para mais ou para menos. 
+   
   DacAudio.FillBuffer();                // Fill the sound buffer with data
-  if(ForceWithYou.Playing==false)       // if not playing,
-    DacAudio.Play(&ForceWithYou);       // play it, this will cause it to repeat and repeat...
+  if(Alarme.Playing==false)       // if not playing,
+    DacAudio.Play(&Alarme);       // play it, this will cause it to repeat and repeat...
   //Serial.println(DemoCounter++);        // Showing that the sound will play as well as your code running here.
   }
   
