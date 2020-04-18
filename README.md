@@ -1,6 +1,8 @@
 # Alarme-coronavirus
 Programa para alarme de coronavirus com a biblioteca XT_DAC_Audio e esp32
 
+Funcionamento: ao detectar toque da mão a música começa a tocar. 
+
 Passo a passo:
 Tutorial 1:
 https://www.youtube.com/watch?v=gxpHDUHcBMk
